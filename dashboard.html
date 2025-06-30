@@ -1,1 +1,34 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Jnavi</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Dashboard Jnavi</h1>
+    <p>Halo, {{ user }} (Level: {{ level }})</p>
+
+    {% if level == 'UMKM' %}
+    <h2>Buat Misi Baru</h2>
+    <form method="POST" action="/buat_misi">
+        <input type="text" name="title" placeholder="Judul Misi" required><br>
+        <textarea name="desc" placeholder="Deskripsi" required></textarea><br>
+        <input type="text" name="gaji" placeholder="Gaji (Rp)" required><br>
+        <button type="submit">Tambah Misi</button>
+    </form>
+    {% endif %}
+
+    <h2>Daftar Misi Tersedia:</h2>
+    <ul>
+    {% for misi in missions %}
+        <li><strong>{{ misi.title }}</strong> - {{ misi.desc }} (Rp{{ misi.gaji }}) oleh {{ misi.oleh }}</li>
+    {% else %}
+        <li>Belum ada misi</li>
+    {% endfor %}
+    </ul>
+
+    <br>
+    <a href="/logout">Logout</a>
+</body>
+</html>
